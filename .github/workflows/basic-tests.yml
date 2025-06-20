@@ -52,11 +52,17 @@ jobs:
       - name: Test download from UKBB with redirect before setting up R
         run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
+      - name: Print all installed packages before R
+        run: apt list --installed
+
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.R }}
           use-public-rspm: true
+
+      - name: Print all installed packages after R
+        run: apt list --installed
 
       - name: Print curl version after setting up R
         run: curl --version
