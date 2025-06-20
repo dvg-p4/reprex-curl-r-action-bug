@@ -36,6 +36,6 @@ jobs:
           for i in {1..60}
           do 
           echo $i
-          curl --max-time 120 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
-          sleep 60
+          (curl --max-time 120 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7' \
+          && sleep 60) || echo "Failed, skipping sleep to retry now"
           done
