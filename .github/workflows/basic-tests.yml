@@ -19,38 +19,38 @@ jobs:
         R: ["4.4.3"]
 
     steps:
-      - name: Print curl --no-sessionid version before setting up R
-        run: curl --no-sessionid --version
+      - name: Print curl version before setting up R
+        run: curl --version
 
       - name: Test downloads from example.com before setting up R
         run: |
-          curl --no-sessionid --max-time 120 -v example.com
-          curl --no-sessionid --max-time 120 -v http://example.com
-          curl --no-sessionid --max-time 120 -v https://example.com
+          curl --max-time 120 -v example.com
+          curl --max-time 120 -v http://example.com
+          curl --max-time 120 -v https://example.com
 
       - name: Try http://github.com
-        run: curl --no-sessionid --max-time 120  -v 'http://github.com'
+        run: curl --max-time 120  -v 'http://github.com'
 
       - name: Try https://github.com
-        run: curl --no-sessionid --max-time 120  -v 'https://github.com'
+        run: curl --max-time 120  -v 'https://github.com'
 
       - name: Test UKBB root https before setting up R
-        run: curl --no-sessionid --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
 
       - name: Test download from UKBB with https before setting up R
-        run: curl --no-sessionid --max-time 120  -v 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Test UKBB root without redirect before setting up R
-        run: curl --no-sessionid --max-time 120  -v 'http://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v 'http://biobank.ndph.ox.ac.uk'
 
       - name: Test UKBB root with redirect before setting up R
-        run: curl --no-sessionid --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk'
 
       - name: Test download from UKBB without following redirect before setting up R
-        run: curl --no-sessionid --max-time 120  -v 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Test download from UKBB with redirect before setting up R
-        run: curl --no-sessionid --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
@@ -58,38 +58,38 @@ jobs:
           r-version: ${{ matrix.R }}
           use-public-rspm: true
 
-      - name: Print curl --no-sessionid version after setting up R
-        run: curl --no-sessionid --version
+      - name: Print curl version after setting up R
+        run: curl --version
 
       - name: Test downloads from example.com after setting up R
         run: |
-          curl --no-sessionid --max-time 120 -v example.com
-          curl --no-sessionid --max-time 120 -v http://example.com
-          curl --no-sessionid --max-time 120 -v https://example.com
+          curl --max-time 120 -v example.com
+          curl --max-time 120 -v http://example.com
+          curl --max-time 120 -v https://example.com
 
       - name: Try http://github.com
-        run: curl --no-sessionid --max-time 120  -v 'http://github.com'
+        run: curl --max-time 120  -v 'http://github.com'
 
       - name: Try https://github.com
-        run: curl --no-sessionid --max-time 120  -v 'https://github.com'
+        run: curl --max-time 120  -v 'https://github.com'
 
       - name: Test UKBB root https after setting up R
-        run: curl --no-sessionid --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
 
       - name: Test download from UKBB with https after setting up R
-        run: curl --no-sessionid --max-time 120  -v 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Test UKBB root without redirect after setting up R
-        run: curl --no-sessionid --max-time 120  -v 'http://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v 'http://biobank.ndph.ox.ac.uk'
 
       - name: Test UKBB root with redirect after setting up R
-        run: curl --no-sessionid --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk'
+        run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk'
 
       - name: Test download from UKBB without following redirect after setting up R
-        run: curl --no-sessionid --max-time 120  -v 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Test download from UKBB with redirect after setting up R
-        run: curl --no-sessionid --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
       - name: Test UKBB download via R
         run: |
@@ -101,4 +101,4 @@ jobs:
           cat ~/test_download_schema_2.txt
 
       - name: Test download from UKBB once more
-        run: curl --no-sessionid --max-time 120 -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+        run: curl --max-time 120 -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
