@@ -19,11 +19,11 @@ jobs:
         R: ["4.4.3"]
 
     steps:
-      - name: Loop for 10 minutes
+      - name: Loop for an hour
         run: |
           for i in {1..60}
           do 
           echo $i
           curl --max-time 120 'https://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
-          sleep 30
+          sleep 60
           done
