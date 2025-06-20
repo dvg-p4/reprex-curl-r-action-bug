@@ -88,5 +88,14 @@ jobs:
       - name: Test download from UKBB with redirect after setting up R
         run: curl --max-time 120  -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
 
+      - name: Test UKBB download via R
+        run: |
+          /opt/R/${{ matrix.R }}/bin/Rscript -e \
+          '.Internal(curlDownload("http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7", "~/test_download_schema.txt", FALSE, "w", TRUE, NULL))'
+          cat ~/test_download_schema.txt
+          /opt/R/${{ matrix.R }}/bin/Rscript -e \
+          'download.file("http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7", "~/test_download_schema_2.txt")'
+          cat ~/test_download_schema_2.txt
+
       - name: Test download from UKBB once more
         run: curl --max-time 120 -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
