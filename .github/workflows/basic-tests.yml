@@ -1,0 +1,64 @@
+name: Basic Tests
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+env:
+  _R_CHECK_FORCE_SUGGESTS_: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        R: ["4.4.3"]
+
+    steps:
+      - name: Print curl version before setting up R
+        run: curl --version
+
+      - name: Test download from example.com before setting up R
+        run: |
+          curl --max-time 120 --trace - example.com
+
+      - name: Test download from UKBB without following redirect before setting up R
+        run: curl --max-time 120  --trace - 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+
+      - name: Test download from UKBB with redirect before setting up R
+        run: curl --max-time 120  --trace - -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+
+      - name: Setup R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: ${{ matrix.R }}
+          use-public-rspm: true
+
+      - name: Print curl version after setting up R
+        run: curl --version
+
+      - name: Test download from example.com after setting up R
+        run: |
+          curl --max-time 120 --trace - example.com
+
+      - name: Test download from UKBB without following redirect after setting up R
+        run: curl --max-time 120 --trace - 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+
+      - name: Test download from UKBB with redirect after setting up R
+        run: curl --max-time 120 --trace - -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+
+      - name: Test UKBB download via R
+        run: |
+          /opt/R/${{ matrix.R }}/bin/Rscript -e \
+          '.Internal(curlDownload("http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7", "~/test_download_schema.txt", FALSE, "w", TRUE, NULL))'
+          cat ~/test_download_schema.txt
+          /opt/R/${{ matrix.R }}/bin/Rscript -e \
+          'download.file("http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7", "~/test_download_schema_2.txt")'
+          cat ~/test_download_schema_2.txt
+
+      - name: Test download from UKBB once more
+        run: curl --max-time 120 --trace - -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
