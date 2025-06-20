@@ -106,5 +106,11 @@ jobs:
           'download.file("http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7", "~/test_download_schema_2.txt")'
           cat ~/test_download_schema_2.txt
 
-      - name: Test download from UKBB once more
-        run: curl --max-time 120 -v -L 'http://biobank.ndph.ox.ac.uk/showcase/scdown.cgi?fmt=txt&id=7'
+      - name: Loop for 10 minutes
+        run: |
+          for i in {1..60}
+          do 
+          echo $i
+          curl --max-time 120 'https://biobank.ndph.ox.ac.uk'
+          sleep 10
+          done
