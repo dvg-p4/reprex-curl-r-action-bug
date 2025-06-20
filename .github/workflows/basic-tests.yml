@@ -28,11 +28,11 @@ jobs:
           curl --max-time 120 -v http://example.com
           curl --max-time 120 -v https://example.com
 
-      - name: Try https://github.com
-        run: curl --max-time 120  -v 'https://github.com'
-
       - name: Try http://github.com
         run: curl --max-time 120  -v 'http://github.com'
+
+      - name: Try https://github.com
+        run: curl --max-time 120  -v 'https://github.com'
 
       - name: Test UKBB root https before setting up R
         run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
@@ -67,11 +67,11 @@ jobs:
           curl --max-time 120 -v http://example.com
           curl --max-time 120 -v https://example.com
 
-      - name: Try https://github.com
-        run: curl --max-time 120  -v 'https://github.com'
-
       - name: Try http://github.com
         run: curl --max-time 120  -v 'http://github.com'
+
+      - name: Try https://github.com
+        run: curl --max-time 120  -v 'https://github.com'
 
       - name: Test UKBB root https after setting up R
         run: curl --max-time 120  -v 'https://biobank.ndph.ox.ac.uk'
