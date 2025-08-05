@@ -1,1 +1,1 @@
-Link to [.github/workflows]
+Link to [.github/workflows/basic-tests.yml]
